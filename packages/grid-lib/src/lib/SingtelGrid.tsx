@@ -14,6 +14,7 @@ export interface ColumnDef {
   width?: number;
   align?: 'rightAligned' | 'leftAligned';
   isSort?: boolean;
+  cellRenderer?: (value: any, row: RowData) => React.ReactNode;
 }
 
 export interface RowData {
@@ -26,7 +27,7 @@ export interface SingtelGridProps {
   mobileTitle: string;
   showHeader?: boolean;
   getUniqRowId?: (data: RowData) => string;
-  rowSelection?: 'single' | 'multiple';
+  rowSelection?: 'single' | 'multiple' | null;
 }
 
 const SingtelGrid: React.FC<SingtelGridProps> = ({
@@ -68,7 +69,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
   useEffect(() => {
     const updatedColumnDefs = columnDefs.map((columnDef) => {
       if (!columnDef.width) {
-        const updatedWidth = ((gridWidth - (isMobileView ? 68 :  84)) / columnDefs.length)
+        const updatedWidth = ((gridWidth - (isMobileView ? 68 : 84)) / columnDefs.length)
         return { ...columnDef, width: updatedWidth };
       }
       return columnDef;
@@ -148,11 +149,11 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
         key={columnDef.property}
         className={`singtel-grid-header-cell`}
         style={{ width: columnDef.width }}
-        onClick={() => isSortable && handleSort(columnDef.property)}
       >
         <div className={`${columnDef.align ? columnDef.align : 'leftAligned'}`}>{columnDef.headerName}</div>
         {isSortable && (
-          <div className="singtel-grid-sort">
+          <div className="singtel-grid-sort"
+            onClick={() => isSortable && handleSort(columnDef.property)}>
             <img
               src={sortIcon}
               alt="Sort Icon"
@@ -209,7 +210,11 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
                   {columnDef.headerName} :
                 </div>
                 <div className={`singtel-grid-cell-mobile-text`}>
-                  {row[columnDef.property]}
+                  {columnDef.cellRenderer ? (
+                    columnDef.cellRenderer(row[columnDef.property], row)
+                  ) : (
+                    row[columnDef.property]
+                  )}
                 </div>
               </div>
             ))}
@@ -220,9 +225,12 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
               <div
                 className={`singtel-grid-cell-text ${columnDef.align ? columnDef.align : 'leftAligned'
                   }`}
-                
               >
-                {row[columnDef.property]}
+                {columnDef.cellRenderer ? (
+                  columnDef.cellRenderer(row[columnDef.property], row)
+                ) : (
+                  row[columnDef.property]
+                )}
               </div>
             </div>
           ))
@@ -273,4 +281,3 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
 };
 
 export default SingtelGrid;
-
