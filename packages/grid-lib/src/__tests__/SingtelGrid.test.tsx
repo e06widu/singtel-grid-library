@@ -4,8 +4,8 @@ import '@testing-library/jest-dom/extend-expect';
 
 describe('SingtelGrid', () => {
   const columnDefs: ColumnDef[] = [
-    { headerName: 'Name', property: 'name', width: 100 },
-    { headerName: 'Age', property: 'age', width: 80 },
+    { headerName: 'Name', property: 'name', width: 200 },
+    { headerName: 'Age', property: 'age', width: 100 },
   ];
 
   const rowData: RowData[] = [
@@ -14,7 +14,7 @@ describe('SingtelGrid', () => {
   ];
 
   it('renders the grid with header and rows', () => {
-    render(<SingtelGrid columnDefs={columnDefs} rowData={rowData} />);
+    render(<SingtelGrid mobileTitle={'Profile details'} columnDefs={columnDefs} rowData={rowData} />);
 
     // Header
     expect(screen.getByText('Name')).toBeInTheDocument();
@@ -27,11 +27,34 @@ describe('SingtelGrid', () => {
     expect(screen.getByText('25')).toBeInTheDocument();
   });
 
-  it('handles row selection', () => {
-    // const handleRowSelection = jest.fn();
+  it('renders the grid header with column names', () => {
+    const { getByText } = render(
+      <SingtelGrid columnDefs={columnDefs} rowData={rowData} mobileTitle="Mobile Title" />
+    );
 
+    const nameHeader = getByText('Name');
+    const ageHeader = getByText('Age');
+
+    expect(nameHeader).toBeInTheDocument();
+    expect(ageHeader).toBeInTheDocument();
+  });
+
+  it('applies the provided column widths', () => {
+    const { getByText } = render(
+      <SingtelGrid columnDefs={columnDefs} rowData={rowData} mobileTitle="Mobile Title" />
+    );
+
+    const nameCell = getByText('John Doe').parentElement;
+    const ageCell = getByText('30').parentElement;
+
+    expect(nameCell).toHaveStyle('width: 200px');
+    expect(ageCell).toHaveStyle('width: 100px');
+  });
+
+  it('handles row selection', () => {
     render(
       <SingtelGrid
+        mobileTitle={'Profile details'}
         columnDefs={columnDefs}
         rowData={rowData}
         rowSelection="multiple"
@@ -49,35 +72,31 @@ describe('SingtelGrid', () => {
     fireEvent.click(checkbox1);
     expect(checkbox1.getAttribute('alt')).toEqual('Checked');
     expect(checkbox2.getAttribute('alt')).toEqual('Not Checked');
-    // expect(handleRowSelection).toHaveBeenCalledWith('{"name":"John Doe","age":30}');
 
     // Select second row
     fireEvent.click(checkbox2);
     expect(checkbox1.getAttribute('alt')).toEqual('Checked');
     expect(checkbox2.getAttribute('alt')).toEqual('Checked');
-    // expect(handleRowSelection).toHaveBeenCalledWith('{"name":"Jane Smith","age":25}');
 
     // Deselect first row
     fireEvent.click(checkbox1);
     expect(checkbox1.getAttribute('alt')).toEqual('Not Checked');
     expect(checkbox2.getAttribute('alt')).toEqual('Checked');
-    // expect(handleRowSelection).toHaveBeenCalledWith('{"name":"John Doe","age":30}');
 
     // Deselect second row
     fireEvent.click(checkbox2);
     expect(checkbox1.getAttribute('alt')).toEqual('Not Checked');
     expect(checkbox2.getAttribute('alt')).toEqual('Not Checked');
-    // expect(handleRowSelection).toHaveBeenCalledWith('{"name":"Jane Smith","age":25}');
   });
 
   it('handles single row selection', () => {
-    // const handleRowSelection = jest.fn();
 
     render(
       <SingtelGrid
         columnDefs={columnDefs}
         rowData={rowData}
         rowSelection="single"
+        mobileTitle="Sample Data"
       />
     );
 
@@ -92,12 +111,11 @@ describe('SingtelGrid', () => {
     fireEvent.click(radioButton1.parentElement as HTMLElement);
     expect(radioButton1.getAttribute('alt')).toEqual('Checked');
     expect(radioButton2.getAttribute('alt')).toEqual('Not Checked');
-    // expect(handleRowSelection).toHaveBeenCalledWith('0');
 
     // Select second row
     fireEvent.click(radioButton2.parentElement as HTMLElement);
     expect(radioButton1.getAttribute('alt')).toEqual('Not Checked');
     expect(radioButton2.getAttribute('alt')).toEqual('Checked');
-    // expect(handleRowSelection).toHaveBeenCalledWith('1');
   });
 });
+

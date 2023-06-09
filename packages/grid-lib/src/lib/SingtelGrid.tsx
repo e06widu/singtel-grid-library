@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './SingtelGrid.css';
+import '../fonts/AvenirLTStd.css';
 import sortingUpIcon from '../assets/sortingUp.svg';
 import sortingDownIcon from '../assets/sortingDown.svg';
 import sortingNeutralIcon from '../assets/sortingNeutral.svg';
@@ -10,7 +11,7 @@ import SingtelRadioButton from './SingtelRadioButton';
 export interface ColumnDef {
   headerName: string;
   property: string;
-  width: number;
+  width?: number;
   align?: 'rightAligned' | 'leftAligned';
   isSort?: boolean;
 }
@@ -22,6 +23,7 @@ export interface RowData {
 export interface SingtelGridProps {
   columnDefs: ColumnDef[];
   rowData: RowData[];
+  mobileTitle: string;
   showHeader?: boolean;
   getUniqRowId?: (data: RowData) => string;
   rowSelection?: 'single' | 'multiple';
@@ -30,19 +32,27 @@ export interface SingtelGridProps {
 const SingtelGrid: React.FC<SingtelGridProps> = ({
   columnDefs,
   rowData,
+  mobileTitle,
   showHeader = true,
   rowSelection,
   getUniqRowId = (data: RowData) => JSON.stringify(data),
 }) => {
+
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [gridWidth, setGridWidth] = useState<number>(0);
   const [sortColumn, setSortColumn] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [updatedColumnDefs, setUpdatedColumnDefs] = useState<ColumnDef[]>([]);
 
   const [isMobileView, setIsMobileView] = useState<boolean>(false);
   const [isHeaderMultiselect, setIsHeaderMultiselect] = useState<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
+      if (gridRef.current) {
+        setGridWidth(gridRef.current.offsetWidth);
+      }
       setIsMobileView(window.innerWidth < 768);
     };
 
@@ -53,6 +63,18 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+
+  useEffect(() => {
+    const updatedColumnDefs = columnDefs.map((columnDef) => {
+      if (!columnDef.width) {
+        const updatedWidth = ((gridWidth - (isMobileView ? 68 :  84)) / columnDefs.length)
+        return { ...columnDef, width: updatedWidth };
+      }
+      return columnDef;
+    });
+    setUpdatedColumnDefs(updatedColumnDefs)
+  }, [columnDefs, gridWidth, isMobileView]);
 
   const handleSort = (column: string) => {
     if (column === sortColumn) {
@@ -124,12 +146,11 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     return (
       <div
         key={columnDef.property}
-        className={`singtel-grid-header-cell ${columnDef.align ? columnDef.align : 'leftAligned'
-          }`}
+        className={`singtel-grid-header-cell`}
         style={{ width: columnDef.width }}
         onClick={() => isSortable && handleSort(columnDef.property)}
       >
-        <span>{columnDef.headerName}</span>
+        <div className={`${columnDef.align ? columnDef.align : 'leftAligned'}`}>{columnDef.headerName}</div>
         {isSortable && (
           <div className="singtel-grid-sort">
             <img
@@ -180,9 +201,9 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
         style={{ backgroundColor: selectionBgColor }}
       >
         {rowSelection && renderRowSelectionCell(rowId)}
-        {isMobileView && (
+        {(isMobileView && updatedColumnDefs.length > 3) ? (
           <div className="singtel-grid-cell-mobile">
-            {columnDefs.map((columnDef, columnIndex) => (
+            {updatedColumnDefs.map((columnDef, columnIndex) => (
               <div key={columnIndex} style={{ display: 'flex' }}>
                 <div className={`singtel-grid-cell-mobile-header`}>
                   {columnDef.headerName} :
@@ -193,25 +214,23 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
               </div>
             ))}
           </div>
-        )}
-        {!isMobileView &&
-          columnDefs.map((columnDef, columnIndex) => (
-            <div key={columnIndex}>
+        ) : (
+          updatedColumnDefs.map((columnDef, columnIndex) => (
+            <div className='singtel-grid-cell' style={{ width: columnDef.width }} key={columnIndex}>
               <div
-                className={`singtel-grid-cell ${columnDef.align ? columnDef.align : 'leftAligned'
+                className={`singtel-grid-cell-text ${columnDef.align ? columnDef.align : 'leftAligned'
                   }`}
-                style={{ width: columnDef.width }}
+                
               >
                 {row[columnDef.property]}
               </div>
-              {columnIndex < columnDefs.length - 1 && (
-                <div className="singtel-grid-row-divider" />
-              )}
             </div>
-          ))}
+          ))
+        )}
       </div>
     );
   };
+
 
   const sortedData = [...rowData].sort((a: RowData, b: RowData) => {
     if (sortColumn) {
@@ -229,11 +248,11 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
   });
 
   return (
-    <div className="singtel-grid">
+    <div className="singtel-grid" ref={gridRef}>
       {showHeader && (
         <div className="singtel-grid-header">
-          {isMobileView ? (
-            <>Contract Details</>
+          {isMobileView && columnDefs.length > 3 ? (
+            <div className='singtel-grid-header-cell'>{mobileTitle}</div>
           ) : (
             <>
               {rowSelection && (
@@ -241,7 +260,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
                   {rowSelection && handleRowSelectionHeader()}
                 </div>
               )}
-              {columnDefs.map((columnDef) => renderHeaderCell(columnDef))}
+              {updatedColumnDefs.map((columnDef) => renderHeaderCell(columnDef))}
             </>
           )}
         </div>
@@ -254,3 +273,4 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
 };
 
 export default SingtelGrid;
+

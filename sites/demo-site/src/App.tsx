@@ -1,9 +1,7 @@
 import { SingtelGrid, ColumnDef, RowData } from 'grid-lib';
 
 function App() {
-  const onClick = () => {
-    console.log('Clicked')
-  }
+  
   const columnDefs: ColumnDef[] = [
     { headerName: 'Name', property: 'name', width: 150, isSort: true },
     { headerName: 'Age', property: 'age', width: 100, isSort: true },
