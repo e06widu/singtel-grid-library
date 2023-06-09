@@ -1,4 +1,5 @@
 export interface RowData {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 
@@ -9,6 +10,7 @@ export interface ColumnDef {
     align?: 'rightAligned' | 'leftAligned';
     isSort?: boolean;
     isDisplay?: boolean; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     cellRenderer?: (value: any, row: RowData) => React.ReactNode;
 }
 
@@ -17,6 +19,7 @@ export interface SingtelGridProps {
     rowData: RowData[];
     mobileTitle: string;
     showHeader?: boolean;
-    getUniqRowId?: (data: RowData) => string;
     rowSelection?: 'single' | 'multiple' | null;
+    getUniqRowId?: (data: RowData) => string;
+    getSelectedRows?: (selectedRows: RowData[]) => void;
 }

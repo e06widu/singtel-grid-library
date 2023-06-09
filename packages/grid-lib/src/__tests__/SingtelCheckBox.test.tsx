@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 describe('SingtelCheckBox', () => {
   it('renders unchecked checkbox by default', () => {
     const { container } = render(<SingtelCheckBox checked={false} onChange={() => {
-        console.log('changed')
+      console.log('changed')
     }} />);
     const checkbox = container.querySelector('.singtel-checkbox');
     const checkboxIcon = container.querySelector('.singtel-checkbox-icon');
@@ -18,7 +18,7 @@ describe('SingtelCheckBox', () => {
 
   it('renders checked checkbox when checked prop is true', () => {
     const { container } = render(<SingtelCheckBox checked={true} onChange={() => {
-        console.log('changed')
+      console.log('changed')
     }} />);
     const checkbox = container.querySelector('.singtel-checkbox');
     const checkboxIcon = container.querySelector('.singtel-checkbox-icon');
@@ -37,7 +37,8 @@ describe('SingtelCheckBox', () => {
 
     expect(handleChange).not.toHaveBeenCalled();
 
-    fireEvent.click(checkbox!);
+    if (checkbox)
+      fireEvent.click(checkbox);
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(handleChange).toHaveBeenCalledWith(true);

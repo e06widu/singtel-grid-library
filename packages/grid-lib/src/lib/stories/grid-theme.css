@@ -1,0 +1,7 @@
+.singtel-grid-theme {
+    --singtel-grid-header-background-color: #27bcd3;
+}
+
+.singtel-grid-theme .singtel-grid-header {
+    background-color: var(--singtel-grid-header-background-color);
+}

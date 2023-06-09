@@ -1,6 +1,8 @@
-import { Meta, StoryObj } from '@storybook/react';
-import SingtelGrid from './SingtelGrid';
-import { ColumnDef, RowData } from './models';
+import { Meta, Story, StoryObj } from '@storybook/react';
+import SingtelGrid from '../SingtelGrid';
+import { ColumnDef, RowData, SingtelGridProps } from '../models';
+
+import './grid-theme.css'
 
 const meta: Meta<typeof SingtelGrid> = {
   title: 'Design System/SingtelGrid',
@@ -59,7 +61,30 @@ export const Primary: StoryObj<typeof SingtelGrid> = {
     rowData: rowData,
     showHeader: true,
     rowSelection: null,
-    mobileTitle: "Contract Details"
+    mobileTitle: "Contract Details",
+    getSelectedRows: (selectedRows) => {
+      console.log('Selected Rows:', selectedRows);
+    }
   },
 };
 
+// Define the CustomTheme export data
+export const CustomTheme: StoryObj<SingtelGridProps> = (args: SingtelGridProps) => (
+  <div style={{ height: '400px' }}>
+    <div className="singtel-grid-theme">
+      <SingtelGrid {...args} />
+    </div>
+  </div>
+);
+
+// Configure the CustomTheme export data with default arguments
+CustomTheme.args = {
+  columnDefs: columnDefs,
+  rowData: rowData,
+  showHeader: true,
+  rowSelection: null,
+  mobileTitle: "Contract Details",
+  getSelectedRows: (selectedRows) => {
+    console.log('Selected Rows:', selectedRows);
+  }
+};

@@ -5,16 +5,16 @@ import '../../../node_modules/grid-lib/dist/style.css';
 import './my-theme.css'
 
 function App() {
-  
+
   const columnDefs: ColumnDef[] = [
     { headerName: 'Name', property: 'name', width: 150, isSort: true },
     { headerName: 'Age', property: 'age', width: 100, isSort: true },
     {
       headerName: 'Start Date', property: 'startDate', width: 170,
-      cellRenderer: (data: string) => { 
+      cellRenderer: (data: string) => {
         const date = new Date(data);
-        const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        return <>{`${months[date.getMonth()]} ${date.getFullYear()}`}</> 
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return <>{`${months[date.getMonth()]} ${date.getFullYear()}`}</>
       }, isSort: true
     },
     { headerName: 'City', property: 'city', width: 200, isSort: true },
@@ -24,7 +24,7 @@ function App() {
       cellRenderer: (data: string) => { return <>{`$${data}`}</> }
     },
   ];
-  
+
   const rowData: RowData[] = [
     { name: 'A John Doe', age: 25, startDate: '2023-08-09', city: 'New York', address: 'Sample address', income: 350000 },
     { name: 'C Jane Smith', age: 30, startDate: '2023-06-09', city: 'San Francisco', address: 'Sample address', income: 70000 },
@@ -38,12 +38,15 @@ function App() {
   return (
     <>
       <div className='my-theme'>
-      <SingtelGrid
+        <SingtelGrid
           columnDefs={columnDefs}
           rowData={rowData}
           showHeader={true}
-          rowSelection={'multiple'} 
-          mobileTitle={'Contract'} />;
+          rowSelection={'multiple'}
+          mobileTitle={'Contract'}
+          getSelectedRows={(data: RowData[]) => {
+            console.log(data)
+          }} />;
       </div>
 
     </>

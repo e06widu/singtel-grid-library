@@ -15,6 +15,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
   mobileTitle,
   showHeader = true,
   rowSelection,
+  getSelectedRows,
   getUniqRowId = (data: RowData) => JSON.stringify(data),
 }) => {
 
@@ -57,6 +58,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     setUpdatedColumnDefs(updatedColumnDefs);
   }, [columnDefs, gridWidth, isMobileView]);
 
+
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -77,6 +79,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
   const handleRowSelection = (rowId: string) => {
     if (rowSelection === 'single') {
       setSelectedRows([rowId]);
+      getSelectedRows?.([rowData.find((row) => getUniqRowId(row) === rowId)] as RowData[]);
     } else if (rowSelection === 'multiple') {
       const selectedRowSet = new Set(selectedRows);
       if (selectedRowSet.has(rowId)) {
@@ -85,6 +88,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
         selectedRowSet.add(rowId);
       }
       setSelectedRows(Array.from(selectedRowSet));
+      getSelectedRows?.(Array.from(selectedRowSet).map((rowId) => rowData.find((row) => getUniqRowId(row) === rowId)).filter(Boolean) as RowData[]);
     }
   };
 
@@ -97,8 +101,10 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
         selectedRowSet.add(rowId);
       });
       setSelectedRows(Array.from(selectedRowSet));
+      getSelectedRows?.(rowData);
     } else {
       setSelectedRows([]);
+      getSelectedRows?.([])
     }
   };
 
@@ -216,16 +222,16 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
 
   const sortedData = sortColumn
     ? rowData.sort((a, b) => {
-        const aValue = a[sortColumn];
-        const bValue = b[sortColumn];
-        if (typeof aValue === 'number' && typeof bValue === 'number') {
-          return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
-        } else {
-          const aString = String(aValue).toLowerCase();
-          const bString = String(bValue).toLowerCase();
-          return sortOrder === 'asc' ? aString.localeCompare(bString) : bString.localeCompare(aString);
-        }
-      })
+      const aValue = a[sortColumn];
+      const bValue = b[sortColumn];
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+      } else {
+        const aString = String(aValue).toLowerCase();
+        const bString = String(bValue).toLowerCase();
+        return sortOrder === 'asc' ? aString.localeCompare(bString) : bString.localeCompare(aString);
+      }
+    })
     : rowData;
 
   return (
