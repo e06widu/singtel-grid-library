@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import SingtelGrid, { ColumnDef, RowData } from '../lib/SingtelGrid';
+import SingtelGrid from '../lib/SingtelGrid';
 import '@testing-library/jest-dom/extend-expect';
+import { ColumnDef, RowData } from '../lib/models';
 
 describe('SingtelGrid', () => {
   const columnDefs: ColumnDef[] = [

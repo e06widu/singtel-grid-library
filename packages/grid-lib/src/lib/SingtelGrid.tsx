@@ -7,28 +7,7 @@ import sortingNeutralIcon from '../assets/sortingNeutral.svg';
 
 import SingtelCheckBox from './SingtelCheckBox';
 import SingtelRadioButton from './SingtelRadioButton';
-
-export interface ColumnDef {
-  headerName: string;
-  property: string;
-  width?: number;
-  align?: 'rightAligned' | 'leftAligned';
-  isSort?: boolean;
-  cellRenderer?: (value: any, row: RowData) => React.ReactNode;
-}
-
-export interface RowData {
-  [key: string]: any;
-}
-
-export interface SingtelGridProps {
-  columnDefs: ColumnDef[];
-  rowData: RowData[];
-  mobileTitle: string;
-  showHeader?: boolean;
-  getUniqRowId?: (data: RowData) => string;
-  rowSelection?: 'single' | 'multiple' | null;
-}
+import { ColumnDef, RowData, SingtelGridProps } from './models';
 
 const SingtelGrid: React.FC<SingtelGridProps> = ({
   columnDefs,

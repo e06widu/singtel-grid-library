@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import SingtelGrid, { ColumnDef, RowData } from './SingtelGrid';
+import SingtelGrid from './SingtelGrid';
+import { ColumnDef, RowData } from './models';
 
 const meta: Meta<typeof SingtelGrid> = {
   title: 'Design System/SingtelGrid',
@@ -11,8 +12,8 @@ const columnDefs: ColumnDef[] = [
   { headerName: 'Name', property: 'name', width: 150, isSort: true },
   { headerName: 'Age', property: 'age', width: 100, isSort: true },
   {
-    headerName: 'Start Date', property: 'startDate', width: 100,
-    cellRenderer: (data) => { 
+    headerName: 'Start Date', property: 'startDate', width: 170,
+    cellRenderer: (data: string) => { 
       const date = new Date(data);
       const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       return <>{`${months[date.getMonth()]} ${date.getFullYear()}`}</> 
@@ -22,7 +23,7 @@ const columnDefs: ColumnDef[] = [
   { headerName: 'Address', property: 'address', width: 300, isSort: true },
   {
     headerName: 'Income', property: 'income', width: 120, align: 'rightAligned', isSort: true,
-    cellRenderer: (data) => { return <>{`$${data}`}</> }
+    cellRenderer: (data: string) => { return <>{`$${data}`}</> }
   },
 ];
 
