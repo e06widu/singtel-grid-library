@@ -10,19 +10,19 @@ export default meta;
 
 const columnDefs: ColumnDef[] = [
   { headerName: 'Name', property: 'name', width: 150, isSort: true },
-  { headerName: 'Age', property: 'age', width: 100, isSort: true },
+  { headerName: 'Age', property: 'age', width: 100, isSort: true, isDisplay: false },
   {
-    headerName: 'Start Date', property: 'startDate', width: 170,
-    cellRenderer: (data: string) => { 
+    headerName: 'Date', property: 'startDate', width: 170,
+    cellRenderer: (data: string) => {
       const date = new Date(data);
-      const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      return <>{`${months[date.getMonth()]} ${date.getFullYear()}`}</> 
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      return <>{`${months[date.getMonth()]} ${date.getFullYear()}`}</>
     }, isSort: true
   },
-  { headerName: 'City', property: 'city', width: 200, isSort: true },
-  { headerName: 'Address', property: 'address', width: 300, isSort: true },
+  { headerName: 'City', property: 'city', width: 200, isSort: true, isDisplay: false },
+  { headerName: 'Address', property: 'address', width: 300, isSort: true, isDisplay: false },
   {
-    headerName: 'Income', property: 'income', width: 120, align: 'rightAligned', isSort: true,
+    headerName: 'Income', property: 'income', width: 150, align: 'rightAligned', isSort: true,
     cellRenderer: (data: string) => { return <>{`$${data}`}</> }
   },
 ];
