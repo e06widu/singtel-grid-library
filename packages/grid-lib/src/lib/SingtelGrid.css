@@ -300,6 +300,15 @@
         background-repeat: no-repeat;
         background-size: 15px 12px;
     }
+    .singtel-grid-row .singtel-grid-cell.leftAligned:first-child {
+        padding: 0 12px 0 0;
+    }
+    .singtel-grid-header .singtel-grid-header-cell.leftAligned:first-child {
+        padding: 0 12px 0 0;
+    }
+    .singtel-grid-selection-cell {
+        padding: 0;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -358,5 +367,14 @@
     .singtel-grid-sort-icon.neutral {
         background-repeat: no-repeat;
         background-size: 15px 12px;
+    }
+    .singtel-grid-row .singtel-grid-cell.leftAligned:first-child {
+        padding: 0 12px 0 0;
+    }
+    .singtel-grid-header .singtel-grid-header-cell.leftAligned:first-child {
+        padding: 0 12px 0 0;
+    }
+    .singtel-grid-selection-cell {
+        padding: 0;
     }
 }
