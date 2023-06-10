@@ -149,9 +149,8 @@
 }
 
 .singtel-grid-sort {
-    width: 52px;
+    min-width: 52px;
     height: 56px;
-    opacity: 0.5;
     margin-left: 10px;
     border-radius: 25px;
     display: flex;
@@ -160,7 +159,7 @@
 }
 
 .singtel-grid-sort:hover {
-    background: #DEDAFA;
+    background: #EFEDFD;
 }
 
 .singtel-grid-sort-icon {
@@ -254,13 +253,12 @@
         font-size: 18px;
     }
     .singtel-grid-sort {
-        width: 22px;
-        height: 26px;
+        min-width: 26px;
+        height: 30px;
     }
     .singtel-grid-sort-icon {
         height: 12px;
         width: 14px;
-        padding: 7px 4px;
     }
     .singtel-grid-header {
         padding: 8px 16px;
@@ -274,13 +272,33 @@
     .singtel-grid-row::after {
         width: calc(100% - 32px);
     }
-    .singtel-checkbox-icon {
+    .singtel-checkbox-icon.checked {
         background-repeat: no-repeat;
         background-size: 24px 24px;
     }
-    .singtel-radio-icon {
+    .singtel-checkbox-icon.not-checked {
         background-repeat: no-repeat;
         background-size: 24px 24px;
+    }
+    .singtel-radio-icon.checked {
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+    }
+    .singtel-radio-icon.not-checked {
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+    }
+    .singtel-grid-sort-icon.asc {
+        background-repeat: no-repeat;
+        background-size: 15px 12px;
+    }
+    .singtel-grid-sort-icon.desc {
+        background-repeat: no-repeat;
+        background-size: 15px 12px;
+    }
+    .singtel-grid-sort-icon.neutral {
+        background-repeat: no-repeat;
+        background-size: 15px 12px;
     }
 }
 
@@ -296,14 +314,13 @@
         font-size: 14px;
     }
     .singtel-grid-sort {
-        width: 22px;
+        min-width: 22px;
         height: 26px;
         margin-left: 3px;
     }
     .singtel-grid-sort-icon {
         height: 12px;
         width: 14px;
-        padding: 7px 4px;
     }
     .singtel-grid-header {
         padding: 8px 16px;
@@ -314,12 +331,32 @@
     .singtel-grid-cell-mobile-header {
         width: 35%;
     }
-    .singtel-checkbox-icon {
+    .singtel-checkbox-icon.checked {
         background-repeat: no-repeat;
         background-size: 24px 24px;
     }
-    .singtel-radio-icon {
+    .singtel-checkbox-icon.not-checked {
         background-repeat: no-repeat;
         background-size: 24px 24px;
+    }
+    .singtel-radio-icon.checked {
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+    }
+    .singtel-radio-icon.not-checked {
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+    }
+    .singtel-grid-sort-icon.asc {
+        background-repeat: no-repeat;
+        background-size: 15px 12px;
+    }
+    .singtel-grid-sort-icon.desc {
+        background-repeat: no-repeat;
+        background-size: 15px 12px;
+    }
+    .singtel-grid-sort-icon.neutral {
+        background-repeat: no-repeat;
+        background-size: 15px 12px;
     }
 }

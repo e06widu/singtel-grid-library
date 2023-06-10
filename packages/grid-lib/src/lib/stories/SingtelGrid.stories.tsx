@@ -55,7 +55,7 @@ export const Primary: StoryObj<typeof SingtelGrid> = {
   },
 };
 
-const columnDefsCustomTheme: ColumnDef[] = [
+const columnDefsThreeColumns: ColumnDef[] = [
   { headerName: 'Destination', property: 'destination' },
   { headerName: 'Mins', property: 'mins' , align: 'centerAligned'},
   {
@@ -64,7 +64,7 @@ const columnDefsCustomTheme: ColumnDef[] = [
   },
 ];
 
-const rowDataCustomTheme: RowData[] = [
+const rowDataThreeColumns: RowData[] = [
 {destination: 'Bangladesh', mins: 240, rate: 0.03},
 {destination: 'China', mins: 600, rate: 0.01},
 {destination: 'India', mins: 600, rate: 0.07},
@@ -75,8 +75,8 @@ const rowDataCustomTheme: RowData[] = [
 
 export const ThreeColumns: StoryObj<typeof SingtelGrid> = {
   args: {
-    columnDefs: columnDefsCustomTheme,
-    rowData: rowDataCustomTheme,
+    columnDefs: columnDefsThreeColumns,
+    rowData: rowDataThreeColumns,
     showHeader: true,
     rowSelection: null,
     mobileTitle: "Rate Details",
@@ -86,9 +86,34 @@ export const ThreeColumns: StoryObj<typeof SingtelGrid> = {
   },
 };
 
-ThreeColumns.parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+const columnDefsTwoColumns: ColumnDef[] = [
+  { headerName: 'BRN', property: 'brn' },
+  { headerName: 'Company Name', property: 'companyName' },
+];
+
+const rowDataTwoColumns: RowData[] = [
+{brn: '198702323K', companyName: 'Blue Ocean International'},
+{brn: '198702333K', companyName: 'Red Electronics'},
+{brn: '196700335H', companyName: 'Yellow Gaming'},
+{brn: '196800306E', companyName: 'Purple Automobiles'},
+{brn: '199131124V', companyName: 'Diamond Interiors Holdings'},
+{brn: '200201624D', companyName: 'Omnichannel Solutions International'},
+];
+
+
+export const TwoColumns: StoryObj<typeof SingtelGrid> = {
+  args: {
+    columnDefs: columnDefsTwoColumns,
+    rowData: rowDataTwoColumns,
+    showHeader: true,
+    rowSelection: 'multiple',
+    mobileTitle: "BRN Details",
+    getSelectedRows: (selectedRows) => {
+      console.log('Selected Rows:', selectedRows);
+    }
+  },
 };
+
 
 // Define the CustomTheme export data
 export const CustomTheme: StoryObj<SingtelGridProps> = (args: SingtelGridProps) => (
@@ -104,7 +129,7 @@ CustomTheme.args = {
   columnDefs: columnDefs,
   rowData: rowData,
   showHeader: true,
-  rowSelection: null,
+  rowSelection: 'multiple',
   mobileTitle: "Contract Details",
   getSelectedRows: (selectedRows) => {
     console.log('Selected Rows:', selectedRows);
