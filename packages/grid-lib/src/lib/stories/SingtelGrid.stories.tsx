@@ -1,12 +1,16 @@
-import { Meta, Story, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import SingtelGrid from '../SingtelGrid';
 import { ColumnDef, RowData, SingtelGridProps } from '../models';
 
 import './grid-theme.css'
 
+/**
+ * Primary UI component for SingtelGrid
+ */
 const meta: Meta<typeof SingtelGrid> = {
-  title: 'Design System/SingtelGrid',
+  title: 'SingtelGrid',
   component: SingtelGrid,
+  tags: ['autodocs'],
 };
 export default meta;
 
@@ -38,23 +42,6 @@ const rowData: RowData[] = [
   { name: 'P Mike Johnson', age: 35, startDate: '2023-01-31', city: 'London', address: 'Sample address', income: 60000 },
 ];
 
-// const columnDefs: ColumnDef[] = [
-//   { headerName: 'Name',  width: 150, property: 'name', isSort: true },
-//   { headerName: 'Age', width: 80,property: 'age', isSort: true },
-//   { headerName: 'City', width: 150, property: 'city', isSort: true }
-// ];
-
-// const rowData: RowData[] = [
-//   { name: 'A John Doe', age: 25, city: 'New York' },
-//   { name: 'C Jane Smith', age: 30, city: 'San Francisco' },
-//   { name: 'B Mike Johnson', age: 35, city: 'London' },
-//   { name: 'E John Doe', age: 25, city: 'New York' },
-//   { name: 'G Jane Smith', age: 30, city: 'San Francisco' },
-//   { name: 'P Mike Johnson', age: 35, city: 'London' },
-// ];
-
-
-
 export const Primary: StoryObj<typeof SingtelGrid> = {
   args: {
     columnDefs: columnDefs,
@@ -62,6 +49,36 @@ export const Primary: StoryObj<typeof SingtelGrid> = {
     showHeader: true,
     rowSelection: null,
     mobileTitle: "Contract Details",
+    getSelectedRows: (selectedRows) => {
+      console.log('Selected Rows:', selectedRows);
+    }
+  },
+};
+
+const columnDefsCustomTheme: ColumnDef[] = [
+  { headerName: 'Destination', property: 'destination' },
+  { headerName: 'Mins', property: 'mins' },
+  {
+    headerName: 'Rate/Min', property: 'rate', align: 'rightAligned',
+    cellRenderer: (data: string) => { return <>{`$${data}`}</> }
+  },
+];
+
+const rowDataCustomTheme: RowData[] = [
+{destination: 'Bangladesh', mins: 240, rate: 0.03},
+{destination: 'China', mins: 600, rate: 0.01},
+{destination: 'India', mins: 600, rate: 0.07},
+{destination: 'Indonesia', mins: 90, rate: 0.13},
+{destination: 'Malaysia', mins: 60, rate: 0.02},
+];
+
+export const ThreeColumns: StoryObj<typeof SingtelGrid> = {
+  args: {
+    columnDefs: columnDefsCustomTheme,
+    rowData: rowDataCustomTheme,
+    showHeader: true,
+    rowSelection: null,
+    mobileTitle: "Rate Details",
     getSelectedRows: (selectedRows) => {
       console.log('Selected Rows:', selectedRows);
     }
