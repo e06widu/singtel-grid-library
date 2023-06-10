@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 describe('SingtelCheckBox', () => {
   it('renders correctly when checked is true', () => {
-    const { getByRole } = render(<SingtelCheckBox checked={true} onChange={() => {}} />);
+    const { getByRole } = render(<SingtelCheckBox checked={true} onChange={() => {console.log('clicked')}} />);
     const checkBoxIcon = getByRole('checkbox');
 
     expect(checkBoxIcon).toHaveClass('checked');
@@ -12,7 +12,7 @@ describe('SingtelCheckBox', () => {
   });
 
   it('renders correctly when checked is false', () => {
-    const { getByRole } = render(<SingtelCheckBox checked={false} onChange={() => {}} />);
+    const { getByRole } = render(<SingtelCheckBox checked={false} onChange={() => {console.log('clicked')}} />);
     const checkBoxIcon = getByRole('checkbox');
 
     expect(checkBoxIcon).toHaveClass('not-checked');

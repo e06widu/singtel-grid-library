@@ -1,6 +1,7 @@
 import React from 'react';
-import SingtelGrid, { ColumnDef, RowData } from './src/lib/SingtelGrid';
+import SingtelGrid from './src/lib/SingtelGrid';
 import './fonts/AvenirLTStd.css';
+import { ColumnDef, RowData } from './src/lib/models';
 
 function App() {
   const columnDefs: ColumnDef[] = [

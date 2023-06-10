@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 describe('SingtelRadioButton', () => {
   it('renders correctly when checked is true', () => {
-    const { getByRole } = render(<SingtelRadioButton checked={true} onChange={() => {}} />);
+    const { getByRole } = render(<SingtelRadioButton checked={true} onChange={() => {console.log('clicked')}} />);
     const radioIcon = getByRole('checkbox');
 
     expect(radioIcon).toHaveClass('checked');
@@ -14,7 +14,7 @@ describe('SingtelRadioButton', () => {
   });
 
   it('renders correctly when checked is false', () => {
-    const { getByRole } = render(<SingtelRadioButton checked={false} onChange={() => {}} />);
+    const { getByRole } = render(<SingtelRadioButton checked={false} onChange={() => {console.log('clicked')}} />);
     const radioIcon = getByRole('checkbox');
 
     expect(radioIcon).toHaveClass('not-checked');
