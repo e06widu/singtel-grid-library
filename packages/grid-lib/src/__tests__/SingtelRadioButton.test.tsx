@@ -5,38 +5,29 @@ import '@testing-library/jest-dom/extend-expect';
 
 
 describe('SingtelRadioButton', () => {
-  it('renders unchecked radio button by default', () => {
-    const { container } = render(<SingtelRadioButton checked={false} onChange={() => { console.log('changed') }} />);
-    const radioButton = container.querySelector('.singtel-radio-button');
-    const radioIcon = container.querySelector('.singtel-radio-icon');
+  it('renders correctly when checked is true', () => {
+    const { getByRole } = render(<SingtelRadioButton checked={true} onChange={() => {}} />);
+    const radioIcon = getByRole('checkbox');
 
-    expect(radioButton).toBeInTheDocument();
-    expect(radioIcon).toBeInTheDocument();
-    //   expect(radioIcon?.getAttribute('src')).toBe('../assets/radioNotChecked.svg');
-    expect(radioIcon?.getAttribute('alt')).toBe('Not Checked');
+    expect(radioIcon).toHaveClass('checked');
+    expect(radioIcon).toHaveAttribute('aria-checked', 'true');
   });
 
-  it('renders checked radio button when checked prop is true', () => {
-    const { container } = render(<SingtelRadioButton checked={true} onChange={() => { console.log('changed') }} />);
-    const radioButton = container.querySelector('.singtel-radio-button');
-    const radioIcon = container.querySelector('.singtel-radio-icon');
+  it('renders correctly when checked is false', () => {
+    const { getByRole } = render(<SingtelRadioButton checked={false} onChange={() => {}} />);
+    const radioIcon = getByRole('checkbox');
 
-    expect(radioButton).toBeInTheDocument();
-    expect(radioIcon).toBeInTheDocument();
-    //   expect(radioIcon?.getAttribute('src')).toBe('../assets/radioChecked.svg');
-    expect(radioIcon?.getAttribute('alt')).toBe('Checked');
+    expect(radioIcon).toHaveClass('not-checked');
+    expect(radioIcon).toHaveAttribute('aria-checked', 'false');
   });
 
-  it('calls onChange handler when radio button is clicked', () => {
-    const handleChange = jest.fn();
-    const { container } = render(<SingtelRadioButton checked={false} onChange={handleChange} />);
-    const radioButton = container.querySelector('.singtel-radio-button');
+  it('calls the onChange callback when clicked', () => {
+    const onChangeMock = jest.fn();
+    const { getByRole } = render(<SingtelRadioButton checked={false} onChange={onChangeMock} />);
+    const radioDiv = getByRole('checkbox');
 
-    expect(handleChange).not.toHaveBeenCalled();
+    fireEvent.click(radioDiv);
 
-    if (radioButton)
-      fireEvent.click(radioButton);
-
-    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(onChangeMock).toHaveBeenCalled();
   });
 });

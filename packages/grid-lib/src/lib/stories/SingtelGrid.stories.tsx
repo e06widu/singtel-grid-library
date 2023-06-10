@@ -11,6 +11,14 @@ const meta: Meta<typeof SingtelGrid> = {
   title: 'SingtelGrid',
   component: SingtelGrid,
   tags: ['autodocs'],
+  parameters: {
+    backgrounds: {
+      default: 'white',
+      values: [
+        { name: 'white', value: '#ffffff' },
+      ],
+    },
+  },
 };
 export default meta;
 

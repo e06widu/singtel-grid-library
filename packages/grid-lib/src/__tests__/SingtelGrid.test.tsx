@@ -62,32 +62,32 @@ describe('SingtelGrid', () => {
       />
     );
 
-    const checkbox1 = screen.getAllByAltText('Not Checked')[1];
-    const checkbox2 = screen.getAllByAltText('Not Checked')[2];
+    const checkbox1 = screen.getAllByRole('checkbox')[1];
+    const checkbox2 = screen.getAllByRole('checkbox')[2];
 
     // Click checkboxes to select rows
-    expect(checkbox1.getAttribute('alt')).toEqual('Not Checked');
-    expect(checkbox2.getAttribute('alt')).toEqual('Not Checked');
+    expect(checkbox1.getAttribute('class')).toEqual('singtel-checkbox-icon not-checked');
+    expect(checkbox2.getAttribute('class')).toEqual('singtel-checkbox-icon not-checked');
 
     // Select first row
     fireEvent.click(checkbox1);
-    expect(checkbox1.getAttribute('alt')).toEqual('Checked');
-    expect(checkbox2.getAttribute('alt')).toEqual('Not Checked');
+    expect(checkbox1.getAttribute('class')).toEqual('singtel-checkbox-icon checked');
+    expect(checkbox2.getAttribute('class')).toEqual('singtel-checkbox-icon not-checked');
 
     // Select second row
     fireEvent.click(checkbox2);
-    expect(checkbox1.getAttribute('alt')).toEqual('Checked');
-    expect(checkbox2.getAttribute('alt')).toEqual('Checked');
+    expect(checkbox1.getAttribute('class')).toEqual('singtel-checkbox-icon checked');
+    expect(checkbox2.getAttribute('class')).toEqual('singtel-checkbox-icon checked');
 
     // Deselect first row
     fireEvent.click(checkbox1);
-    expect(checkbox1.getAttribute('alt')).toEqual('Not Checked');
-    expect(checkbox2.getAttribute('alt')).toEqual('Checked');
+    expect(checkbox1.getAttribute('class')).toEqual('singtel-checkbox-icon not-checked');
+    expect(checkbox2.getAttribute('class')).toEqual('singtel-checkbox-icon checked');
 
     // Deselect second row
     fireEvent.click(checkbox2);
-    expect(checkbox1.getAttribute('alt')).toEqual('Not Checked');
-    expect(checkbox2.getAttribute('alt')).toEqual('Not Checked');
+    expect(checkbox1.getAttribute('class')).toEqual('singtel-checkbox-icon not-checked');
+    expect(checkbox2.getAttribute('class')).toEqual('singtel-checkbox-icon not-checked');
   });
 
   it('handles single row selection', () => {
@@ -101,22 +101,22 @@ describe('SingtelGrid', () => {
       />
     );
 
-    const radioButton1 = screen.getAllByAltText('Not Checked')[0];
-    const radioButton2 = screen.getAllByAltText('Not Checked')[1];
+    const radioButton1 = screen.getAllByRole('checkbox')[0];
+    const radioButton2 = screen.getAllByRole('checkbox')[1];
 
     // Click radio buttons to select rows
-    expect(radioButton1.getAttribute('alt')).toEqual('Not Checked');
-    expect(radioButton2.getAttribute('alt')).toEqual('Not Checked');
+    expect(radioButton1.getAttribute('class')).toEqual('singtel-radio-icon not-checked');
+    expect(radioButton2.getAttribute('class')).toEqual('singtel-radio-icon not-checked');
 
     // Select first row
     fireEvent.click(radioButton1.parentElement as HTMLElement);
-    expect(radioButton1.getAttribute('alt')).toEqual('Checked');
-    expect(radioButton2.getAttribute('alt')).toEqual('Not Checked');
+    expect(radioButton1.getAttribute('class')).toEqual('singtel-radio-icon checked');
+    expect(radioButton2.getAttribute('class')).toEqual('singtel-radio-icon not-checked');
 
     // Select second row
     fireEvent.click(radioButton2.parentElement as HTMLElement);
-    expect(radioButton1.getAttribute('alt')).toEqual('Not Checked');
-    expect(radioButton2.getAttribute('alt')).toEqual('Checked');
+    expect(radioButton1.getAttribute('class')).toEqual('singtel-radio-icon not-checked');
+    expect(radioButton2.getAttribute('class')).toEqual('singtel-radio-icon checked');
   });
 });
 

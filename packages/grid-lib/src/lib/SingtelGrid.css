@@ -249,6 +249,9 @@
     .singtel-grid-header-cell {
         font-size: 18px;
     }
+    .singtel-grid-header-cell.row-selection {
+        padding-left: 32px;
+    }
     .singtel-grid-cell {
         font-size: 18px;
     }
@@ -308,6 +311,8 @@
     }
     .singtel-grid-selection-cell {
         padding: 0;
+        height: 24px;
+        width: 24px;
     }
 }
 
@@ -318,6 +323,10 @@
     }
     .singtel-grid-header-cell {
         font-size: 14px;
+        padding: 0;
+    }
+    .singtel-grid-header-cell.row-selection {
+        padding-left: 32px;
     }
     .singtel-grid-cell {
         font-size: 14px;
@@ -376,5 +385,10 @@
     }
     .singtel-grid-selection-cell {
         padding: 0;
+        height: 24px;
+        width: 24px;
+    }
+    .singtel-grid-header-selection-cell {
+        padding-right: 12px;
     }
 }

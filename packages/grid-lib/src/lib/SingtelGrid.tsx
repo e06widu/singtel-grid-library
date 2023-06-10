@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './SingtelGrid.css';
 import '../fonts/AvenirLTStd.css';
-// import sortingUpIcon from '../assets/sortingUp.svg';
-// import sortingDownIcon from '../assets/sortingDown.svg';
-// import sortingNeutralIcon from '../assets/sortingNeutral.svg';
 
 import SingtelCheckBox from './SingtelCheckBox';
 import SingtelRadioButton from './SingtelRadioButton';
@@ -281,7 +278,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
       {showHeader && (
         <div className="singtel-grid-header">
           {isMobileView && updatedColumnDefs.filter((columnDef) => columnDef.isDisplay !== false).length > 3 ? (
-            <div className='singtel-grid-header-cell'>{mobileTitle}</div>
+            <div className={`singtel-grid-header-cell ${!rowSelection ? '' : 'row-selection'}`}>{mobileTitle}</div>
           ) : (
             <>
               {rowSelection && (
