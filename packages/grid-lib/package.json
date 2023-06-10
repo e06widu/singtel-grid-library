@@ -10,7 +10,8 @@
         "preview": "vite preview",
         "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
         "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
+        "build-storybook": "storybook build",
+        "storybook-docs": "storybook dev --docs"
     },
     "files": [
         "dist"

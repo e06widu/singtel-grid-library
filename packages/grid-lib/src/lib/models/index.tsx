@@ -34,7 +34,7 @@ export interface ColumnDef {
      * - 'rightAligned': Aligns the text to the right.
      * - 'leftAligned': Aligns the text to the left (default).
      */
-    align?: 'rightAligned' | 'leftAligned';
+    align?: 'rightAligned' | 'leftAligned' | 'centerAligned';
   
     /**
      * Specifies whether the column is sortable.

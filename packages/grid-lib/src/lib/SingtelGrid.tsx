@@ -29,6 +29,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
   const [isMobileView, setIsMobileView] = useState<boolean>(false);
   const [isHeaderMultiselect, setIsHeaderMultiselect] = useState<boolean>(false);
 
+  // Hook for handling grid width and mobile view
   useEffect(() => {
     const handleResize = () => {
       if (gridRef.current) {
@@ -45,6 +46,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     };
   }, []);
 
+// Hook for updating column widths based on grid width and mobile view
   useEffect(() => {
     const updatedColumnDefs = columnDefs
       .filter((columnDef) => columnDef.isDisplay !== false)
@@ -59,6 +61,10 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
   }, [columnDefs, gridWidth, isMobileView]);
 
 
+  /**
+   * handling column sorting
+   * @param column column
+   */
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -68,6 +74,11 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     }
   };
 
+  /**
+   * getting the sort icon based on the current sort column and order
+   * @param column column
+   * @returns sort icon
+   */
   const getSortIcon = (column: string) => {
     if (column === sortColumn) {
       return sortOrder === 'asc' ? sortingDownIcon : sortingUpIcon;
@@ -76,6 +87,10 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     }
   };
 
+  /**
+   * handling row selection
+   * @param rowId uniq row id
+   */
   const handleRowSelection = (rowId: string) => {
     if (rowSelection === 'single') {
       setSelectedRows([rowId]);
@@ -92,6 +107,10 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     }
   };
 
+  /**
+   * handling header row selection for multi selection
+   * @param checked checked status
+   */
   const handleHeaderRowSelection = (checked: boolean) => {
     setIsHeaderMultiselect(checked);
     if (checked) {
@@ -108,6 +127,10 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     }
   };
 
+  /**
+   * rendering the row selection cell in the header
+   * @returns header html
+   */
   const handleRowSelectionHeader = () => {
     return (
       <div className="singtel-grid-selection-cell">
@@ -122,10 +145,20 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     );
   };
 
+  /**
+   * checking if a row is selected
+   * @param rowId Uniq row id
+   * @returns selected row ids
+   */
   const isRowSelected = (rowId: string) => {
     return selectedRows.includes(rowId);
   };
 
+  /**
+   * rendering the header cell
+   * @param columnDef Column definition
+   * @returns Header cell html
+   */
   const renderHeaderCell = (columnDef: ColumnDef) => {
     const isSortable = columnDef.isSort ?? false;
     const sortIcon = getSortIcon(columnDef.property);
@@ -146,6 +179,11 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     );
   };
 
+  /**
+   * rendering the row selection cell
+   * @param rowId Uniq row id
+   * @returns 
+   */
   const renderRowSelectionCell = (rowId: string) => {
     const isSelected = isRowSelected(rowId);
     const selectionBgColor = isSelected ? '#EFEDFD' : '';
@@ -171,6 +209,11 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     );
   };
 
+  /**
+   * rendering a single row
+   * @param row Row data
+   * @returns Single row html
+   */
   const renderRow = (row: RowData) => {
     const rowId = getUniqRowId(row);
     const isSelected = isRowSelected(rowId);

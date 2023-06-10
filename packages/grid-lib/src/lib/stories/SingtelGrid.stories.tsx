@@ -16,7 +16,7 @@ export default meta;
 
 const columnDefs: ColumnDef[] = [
   { headerName: 'Name', property: 'name', width: 150, isSort: true },
-  { headerName: 'Age', property: 'age', width: 100, isSort: true, isDisplay: false },
+  { headerName: 'Age', property: 'age', width: 100, isSort: true },
   {
     headerName: 'Date', property: 'startDate', width: 170,
     cellRenderer: (data: string) => {
@@ -25,8 +25,8 @@ const columnDefs: ColumnDef[] = [
       return <>{`${months[date.getMonth()]} ${date.getFullYear()}`}</>
     }, isSort: true
   },
-  { headerName: 'City', property: 'city', width: 200, isSort: true, isDisplay: false },
-  { headerName: 'Address', property: 'address', width: 300, isSort: true, isDisplay: false },
+  { headerName: 'City', property: 'city', width: 200, isSort: true },
+  { headerName: 'Address', property: 'address', width: 300, isSort: true },
   {
     headerName: 'Income', property: 'income', width: 150, align: 'rightAligned', isSort: true,
     cellRenderer: (data: string) => { return <>{`$${data}`}</> }
@@ -57,7 +57,7 @@ export const Primary: StoryObj<typeof SingtelGrid> = {
 
 const columnDefsCustomTheme: ColumnDef[] = [
   { headerName: 'Destination', property: 'destination' },
-  { headerName: 'Mins', property: 'mins' },
+  { headerName: 'Mins', property: 'mins' , align: 'centerAligned'},
   {
     headerName: 'Rate/Min', property: 'rate', align: 'rightAligned',
     cellRenderer: (data: string) => { return <>{`$${data}`}</> }
@@ -72,6 +72,7 @@ const rowDataCustomTheme: RowData[] = [
 {destination: 'Malaysia', mins: 60, rate: 0.02},
 ];
 
+
 export const ThreeColumns: StoryObj<typeof SingtelGrid> = {
   args: {
     columnDefs: columnDefsCustomTheme,
@@ -83,6 +84,10 @@ export const ThreeColumns: StoryObj<typeof SingtelGrid> = {
       console.log('Selected Rows:', selectedRows);
     }
   },
+};
+
+ThreeColumns.parameters = {
+  actions: { argTypesRegex: "^on[A-Z].*" },
 };
 
 // Define the CustomTheme export data
