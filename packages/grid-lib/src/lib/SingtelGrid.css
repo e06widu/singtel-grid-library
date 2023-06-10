@@ -1,9 +1,22 @@
 :root {
+    --singtel-grid-font-color: #000000;
+    --singtel-grid-background-color: #fff;
     --singtel-grid-header-background-color: #F7F7F7;
+    --singtel-grid-font-family: 'AvenirLTStd', sans-serif;
+    --row-selected-color: #EFEDFD;
+    --row-divider-color: #E1E1E1;
+    --checkbox-checked-image: url('../assets/checkboxChecked.svg');
+    --checkbox-not-checked-image: url('../assets/checkboxNotChecked.svg');
+    --radio-checked-image: url('../assets/radioChecked.svg');
+    --radio-not-checked-image: url('../assets/radioNotChecked.svg');
+    --singtel-grid-sort-icon-asc: url('../assets/sortingUp.svg');
+    --singtel-grid-sort-icon-desc: url('../assets/sortingDown.svg');
+    --singtel-grid-sort-icon-neutral: url('../assets/sortingNeutral.svg');
 }
 
 .singtel-grid {
-    background-color: #fff;
+    color: var(--singtel-grid-font-color);
+    background-color: var(--singtel-grid-background-color);
     border-radius: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -17,7 +30,7 @@
 }
 
 .singtel-grid-header-cell {
-    font-family: 'AvenirLTStd', sans-serif;
+    font-family: var(--singtel-grid-font-family);
     display: flex;
     font-size: 20px;
     line-height: 1.75;
@@ -25,7 +38,8 @@
     padding: 0 12px;
     display: flex;
     align-items: center;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     font-weight: 700;
 }
 
@@ -56,10 +70,14 @@
     position: relative;
 }
 
+.singtel-grid-row.selected {
+    background-color: var(--row-selected-color);
+}
+
 .singtel-grid-row::after {
     position: absolute;
     content: '';
-    border-bottom: 1px solid #E1E1E1;
+    border-bottom: 1px solid var(--row-divider-color);
     width: calc(100% - 48px);
     transform: translateX(-50%);
     bottom: 0;
@@ -71,7 +89,7 @@
 }
 
 .singtel-grid-cell {
-    font-family: 'AvenirLTStd', sans-serif;
+    font-family: var(--singtel-grid-font-family);
     font-size: 20px;
     line-height: 1.75;
     letter-spacing: 0.1px;
@@ -104,7 +122,7 @@
 }
 
 .singtel-grid-cell-mobile-text {
-    font-family: 'AvenirLTStd', sans-serif;
+    font-family: var(--singtel-grid-font-family);
     font-size: 14px;
     line-height: 1.75;
     letter-spacing: 0.1px;
@@ -113,13 +131,12 @@
 }
 
 .singtel-grid-cell-mobile-header {
-    font-family: 'AvenirLTStd', sans-serif;
+    font-family: var(--singtel-grid-font-family);
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
     line-height: 24px;
     letter-spacing: 0.002em;
-    color: #000000;
     width: 35%;
 }
 
@@ -134,10 +151,12 @@
 .singtel-grid-sort {
     width: 52px;
     height: 56px;
-    mix-blend-mode: normal;
     opacity: 0.5;
     margin-left: 10px;
     border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .singtel-grid-sort:hover {
@@ -147,7 +166,80 @@
 .singtel-grid-sort-icon {
     height: 15px;
     width: 10px;
-    padding: 21px;
+}
+
+.singtel-grid-sort-icon.asc {
+    background-repeat: no-repeat;
+    background-size: 11px 15px;
+    background-image: var(--singtel-grid-sort-icon-asc);
+}
+
+.singtel-grid-sort-icon.desc {
+    background-repeat: no-repeat;
+    background-size: 11px 15px;
+    background-image: var(--singtel-grid-sort-icon-desc);
+}
+
+.singtel-grid-sort-icon.neutral {
+    background-repeat: no-repeat;
+    background-size: 11px 15px;
+    background-image: var(--singtel-grid-sort-icon-neutral);
+}
+
+
+/** 
+  SingtelCheckBox styles
+*/
+
+.singtel-checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.singtel-checkbox-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.singtel-checkbox-icon.checked {
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-image: var(--checkbox-checked-image);
+}
+
+.singtel-checkbox-icon.not-checked {
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-image: var(--checkbox-not-checked-image);
+}
+
+
+/**
+    SingtelRadioButton Styles
+*/
+
+.singtel-radio-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.singtel-radio-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.singtel-radio-icon.checked {
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-image: var(--radio-checked-image);
+}
+
+.singtel-radio-icon.not-checked {
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-image: var(--radio-not-checked-image);
 }
 
 @media screen and (max-width: 991px) {
@@ -182,6 +274,14 @@
     .singtel-grid-row::after {
         width: calc(100% - 32px);
     }
+    .singtel-checkbox-icon {
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+    }
+    .singtel-radio-icon {
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -213,5 +313,13 @@
     }
     .singtel-grid-cell-mobile-header {
         width: 35%;
+    }
+    .singtel-checkbox-icon {
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+    }
+    .singtel-radio-icon {
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
     }
 }

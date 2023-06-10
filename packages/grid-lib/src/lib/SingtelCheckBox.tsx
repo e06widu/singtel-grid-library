@@ -1,8 +1,5 @@
 import React from 'react';
-import './SingtelCheckBox.css';
-
-import checkboxNotChecked from '../assets/checkboxNotChecked.svg';
-import checkboxChecked from '../assets/checkboxChecked.svg';
+import './SingtelGrid.css';
 
 interface SingtelCheckBoxProps {
   checked: boolean;
@@ -16,9 +13,11 @@ const SingtelCheckBox: React.FC<SingtelCheckBoxProps> = ({ checked, onChange }) 
 
   return (
     <div className='singtel-checkbox' onClick={handleChange}>
-      <img src={checked ? checkboxChecked : checkboxNotChecked} 
-      alt={checked ? 'Checked' : 'Not Checked'} 
-      className="singtel-checkbox-icon"/>
+      <div
+        className={`singtel-checkbox-icon ${checked ? 'checked' : 'not-checked'}`}
+        role="checkbox"
+        aria-checked={checked}
+      />
     </div>
   );
 };

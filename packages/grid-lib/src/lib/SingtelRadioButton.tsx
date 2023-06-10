@@ -1,8 +1,5 @@
 import React from 'react';
-import './SingtelRadioButton.css';
-
-import radioNotChecked from '../assets/radioNotChecked.svg';
-import radioChecked from '../assets/radioChecked.svg';
+import './SingtelGrid.css';
 
 interface SingtelRadioButtonProps {
   checked: boolean;
@@ -12,13 +9,14 @@ interface SingtelRadioButtonProps {
 const SingtelRadioButton: React.FC<SingtelRadioButtonProps> = ({ checked, onChange }) => {
   return (
     <div className="singtel-radio-button" onClick={onChange}>
-      <img
-        src={checked ? radioChecked : radioNotChecked}
-        alt={checked ? 'Checked' : 'Not Checked'}
-        className="singtel-radio-icon"
+      <div
+        className={`singtel-radio-icon ${checked ? 'checked' : 'not-checked'}`}
+        role="checkbox"
+        aria-checked={checked}
       />
     </div>
   );
 };
 
 export default SingtelRadioButton;
+

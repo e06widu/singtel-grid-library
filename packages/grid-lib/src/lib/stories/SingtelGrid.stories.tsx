@@ -16,7 +16,7 @@ export default meta;
 
 const columnDefs: ColumnDef[] = [
   { headerName: 'Name', property: 'name', width: 150, isSort: true },
-  { headerName: 'Age', property: 'age', width: 100, isSort: true },
+  { headerName: 'Age', property: 'age', width: 130, isSort: true },
   {
     headerName: 'Date', property: 'startDate', width: 170,
     cellRenderer: (data: string) => {
@@ -28,7 +28,7 @@ const columnDefs: ColumnDef[] = [
   { headerName: 'City', property: 'city', width: 200, isSort: true },
   { headerName: 'Address', property: 'address', width: 300, isSort: true },
   {
-    headerName: 'Income', property: 'income', width: 150, align: 'rightAligned', isSort: true,
+    headerName: 'Income', property: 'income', width: 200, align: 'rightAligned', isSort: true,
     cellRenderer: (data: string) => { return <>{`$${data}`}</> }
   },
 ];

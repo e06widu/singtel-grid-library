@@ -161,3 +161,23 @@ import './singtel-grid-theme.css'
     </div>
 </div>
 ```
+
+### CSS Properties
+
+This is a list of custom CSS properties used in the project.
+
+| Name                           | Description                          | Default |
+|--------------------------------|--------------------------------------|---------|
+| --singtel-grid-font-color      | Font color for the grid              | #000000 |
+| --singtel-grid-background-color| Background color for the grid        | #fff    |
+| --singtel-grid-header-background-color | Background color for the grid header | #F7F7F7 |
+| --singtel-grid-font-family     | Font family for the grid              | 'AvenirLTStd', sans-serif |
+| --row-selected-color           | Color for selected rows in the grid  | #EFEDFD |
+| --row-divider-color            | Color for row dividers in the grid   | #E1E1E1 |
+| --checkbox-checked-image       | URL for checked checkbox image       | '../assets/checkboxChecked.svg' |
+| --checkbox-not-checked-image   | URL for unchecked checkbox image     | '../assets/checkboxNotChecked.svg' |
+| --radio-checked-image          | URL for checked radio button image   | '../assets/radioChecked.svg' |
+| --radio-not-checked-image      | URL for unchecked radio button image | '../assets/radioNotChecked.svg' |
+| --singtel-grid-sort-icon-asc   | URL for ascending sort icon image    | '../assets/sortingUp.svg' |
+| --singtel-grid-sort-icon-desc  | URL for descending sort icon image   | '../assets/sortingDown.svg' |
+| --singtel-grid-sort-icon-neutral| URL for neutral sort icon image      | '../assets/sortingNeutral.svg' |

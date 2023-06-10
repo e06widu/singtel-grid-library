@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './SingtelGrid.css';
 import '../fonts/AvenirLTStd.css';
-import sortingUpIcon from '../assets/sortingUp.svg';
-import sortingDownIcon from '../assets/sortingDown.svg';
-import sortingNeutralIcon from '../assets/sortingNeutral.svg';
+// import sortingUpIcon from '../assets/sortingUp.svg';
+// import sortingDownIcon from '../assets/sortingDown.svg';
+// import sortingNeutralIcon from '../assets/sortingNeutral.svg';
 
 import SingtelCheckBox from './SingtelCheckBox';
 import SingtelRadioButton from './SingtelRadioButton';
@@ -46,7 +46,7 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
     };
   }, []);
 
-// Hook for updating column widths based on grid width and mobile view
+  // Hook for updating column widths based on grid width and mobile view
   useEffect(() => {
     const updatedColumnDefs = columnDefs
       .filter((columnDef) => columnDef.isDisplay !== false)
@@ -81,9 +81,9 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
    */
   const getSortIcon = (column: string) => {
     if (column === sortColumn) {
-      return sortOrder === 'asc' ? sortingDownIcon : sortingUpIcon;
+      return sortOrder;
     } else {
-      return sortingNeutralIcon;
+      return 'neutral';
     }
   };
 
@@ -172,7 +172,10 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
         <div className={`${columnDef.align ? columnDef.align : 'leftAligned'}`}>{columnDef.headerName}</div>
         {isSortable && (
           <div className="singtel-grid-sort" onClick={() => isSortable && handleSort(columnDef.property)}>
-            <img src={sortIcon} alt="Sort Icon" className="singtel-grid-sort-icon" />
+            <div
+              className={`singtel-grid-sort-icon ${sortIcon}`}
+              role="button"
+            />
           </div>
         )}
       </div>
@@ -186,12 +189,10 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
    */
   const renderRowSelectionCell = (rowId: string) => {
     const isSelected = isRowSelected(rowId);
-    const selectionBgColor = isSelected ? '#EFEDFD' : '';
 
     return (
       <div
-        className="singtel-grid-selection-cell"
-        style={{ backgroundColor: selectionBgColor }}
+        className={`singtel-grid-selection-cell`}
       >
         {rowSelection === 'single' && (
           <SingtelRadioButton
@@ -217,13 +218,11 @@ const SingtelGrid: React.FC<SingtelGridProps> = ({
   const renderRow = (row: RowData) => {
     const rowId = getUniqRowId(row);
     const isSelected = isRowSelected(rowId);
-    const selectionBgColor = isSelected ? '#EFEDFD' : '';
 
     return (
       <div
         key={rowId}
-        className="singtel-grid-row"
-        style={{ backgroundColor: selectionBgColor }}
+        className={`singtel-grid-row ${isSelected ? 'selected' : ''}`}
       >
         {rowSelection && renderRowSelectionCell(rowId)}
         {isMobileView && updatedColumnDefs.filter((columnDef) => columnDef.isDisplay !== false).length > 3 ? (
